@@ -19,7 +19,6 @@ if uploaded_file_order:
     try:
         st.write(uploaded_file_order.name)
         df = pd.read_excel(uploaded_file_order, engine="openpyxl")
-        st.write(df.head())
 
         # 🟢 نخلي أسماء الأعمدة كلها lowercase علشان نقارن بسهولة
         df.columns = [col.lower() for col in df.columns]
@@ -46,6 +45,12 @@ if uploaded_file_order:
             st.warning("⚠️ الملف لا يحتوي على عمود Price")
 
         st.dataframe(df)
+        daily_report_order = (df.groupby("orderdate_dateonly")
+           .agg( عدد_الأوردرات=("orderdate_dateonly", "count"), 
+                 إجمالي_السعر=("price_x3.75", "sum") )
+                    .reset_index())
+        st.subheader("📊 Daily Report")
+        st.dataframe(daily_report_order)
 
         output_file = "OrderDate_updated.xlsx"
         df.to_excel(output_file, index=False)
@@ -57,6 +62,11 @@ if uploaded_file_order:
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             )
     except Exception as e:
+     if "defaultColWidthPt" in str(e):
+        st.error(
+            "❌ الملف غير متوافق. برجاء فتحه في Excel ثم Save As ثم إعادة رفعه."
+        )
+     else:
         st.error(f"❌ حدث خطأ: {e}")
 
 
