@@ -13,11 +13,13 @@ def add_3_hours(text):
     except:
         return text
 
-uploaded_file = st.file_uploader(" Choose Excel file ", type=['xlsx'])
+uploaded_file_order= st.file_uploader(" Choose Excel file ", type=['xlsx'])
 
-if uploaded_file:
+if uploaded_file_order:
     try:
-        df = pd.read_csv(uploaded_file, encoding='latin1')
+        st.write(uploaded_file_order.name)
+        df = pd.read_excel(uploaded_file_order, engine="openpyxl")
+        st.write(df.head())
 
         # 🟢 نخلي أسماء الأعمدة كلها lowercase علشان نقارن بسهولة
         df.columns = [col.lower() for col in df.columns]
