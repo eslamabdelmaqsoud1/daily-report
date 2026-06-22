@@ -13,7 +13,7 @@ def add_3_hours(text):
     except:
         return text
 
-uploaded_file = st.file_uploader("اختر ملف CSV فقط", type=['xlsx'])
+uploaded_file = st.file_uploader(" Choose Excel file ", type=['xlsx'])
 
 if uploaded_file:
     try:
@@ -77,7 +77,7 @@ if uploaded_file is not None:
     )
 
     df["التاريخ/الوقت_بعد التعديل"] = (
-        df["التاريخ/الوقت"] + pd.Timedelta(hours=2)
+        df["التاريخ/الوقت"] + pd.Timedelta(hours=1)
     )
     df['التاريخ بعد التعديل ']=df["التاريخ/الوقت_بعد التعديل"].dt.date
     df['سعر التكلفة']=df['سعر التكلفة'].astype(str).str.replace('ر.س',"",regex=False).str.strip().astype(float)
