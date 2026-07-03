@@ -106,4 +106,23 @@ if uploaded_file is not None:
 )
     st.dataframe(daily_report)
 
+st.title("قائمة الطلبات ")
+def Clean_price(df):
+    df['price']=df['الإجمالي'].astype(str).str.replace("ر.س","",regex=False).str.strip().astype(float)
+uploaded__file=st.file_uploader("choose ypur excel file",type=["xlsx"])
+if uploaded__file:
+    st.success("File Uploaded Successfully ✅")
+    df=pd.read_excel(uploaded__file)
+    df.columns=df.columns.str.strip()
+    df['تاريخ الاضافة']=pd.to_datetime(df['تاريخ الاضافة'])
+    df['date']=df['تاريخ الاضافة'].dt.date
+    Clean_price(df)
+    if st.button("عرض البيانات بعد التعديل"):
+     st.write(df)
+    report=df.groupby("date").agg(اجمالى_عدد_البطاقات=("عدد البطاقات","sum"),
+                           اجمالى_السعر =("price","sum")).reset_index()
+    report.rename(columns={"date":"التاريخ"},inplace=True)
+    if st.button("عرض التقرير"):
+       st.markdown("<h2 style='text-align:center;'>تقرير الطلبات</h2>",unsafe_allow_html=True)
+       st.dataframe(report)
 
