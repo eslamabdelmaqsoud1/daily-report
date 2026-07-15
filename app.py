@@ -3,7 +3,7 @@ import pandas as pd
 from datetime import datetime, timedelta
 st.title("Hello Ahmed Abdelmaksoud ❤️")
 
-st.title("🕒 تعديل عمود OrderDate +3 ساعات")
+st.title(" Wupex - order details ")
 
 def add_3_hours(text):
     try:
@@ -70,7 +70,7 @@ if uploaded_file_order:
         st.error(f"❌ حدث خطأ: {e}")
 
 
-st.title("Daily Report")
+st.title("Onecard - سجل العمليات")
 
 uploaded_file = st.file_uploader(
     "Hello Ahmed please download your excel file ⬇️",
@@ -106,7 +106,7 @@ if uploaded_file is not None:
 )
     st.dataframe(daily_report)
 
-st.title("قائمة الطلبات ")
+st.title(" Daleel - قائمة الطلبات ")
 def Clean_price(df):
     df['price']=df['الإجمالي'].astype(str).str.replace("ر.س","",regex=False).str.strip().astype(float)
 uploaded__file=st.file_uploader("choose ypur excel file",type=["xlsx"])
