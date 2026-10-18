@@ -108,7 +108,7 @@ if uploaded_file is not None:
 
 st.title(" Daleel - قائمة الطلبات ")
 def Clean_price(df):
-    df['price']=df['الإجمالي'].astype(str).str.replace("ر.س","",regex=False).str.strip().astype(float)
+    df['price']=df['الإجمالي'].astype(str).str.replace("ر.س","",regex=False).str.replace(",", "", regex=False).str.strip().astype(float)
 uploaded__file=st.file_uploader("choose ypur excel file",type=["xlsx"])
 if uploaded__file:
     st.success("File Uploaded Successfully ✅")
